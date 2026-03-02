@@ -1,2 +1,2 @@
 # pi_socio_tech
-Projeto Integrador Inclusão Sócio-Tecnológica
+Projeto Integrador Inclusão Socio-Tecnológica
