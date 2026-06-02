@@ -545,8 +545,8 @@
         <aside aria-label="Menu principal do dashboard">
             <nav>
                 <ul>
-                    <li><a href="/" class="active" aria-current="page">PSR · Visão Geral</a></li>
-                    <li><a href="{{ url_for('tic_inclusao') }}">TICS e Inclusão</a></li>
+                    <li><a href="/">PSR · Visão Geral</a></li>
+                    <li><a href="{{ url_for('tic_inclusao') }}" class="active" aria-current="page" >TICS e Inclusão</a></li>
                     <li><a href="#">Cruzamento PSR x TICS</a></li>
                     <li><a href="#">Centro POP Rua</a></li>
                     <li><a href="#">Projetos Ativos</a></li>
@@ -568,9 +568,9 @@
         <main id="main-content" role="main">
             <!-- Mapa e filtros (placeholder de mapa aprimorado) -->
             <section class="dashboard-card col-8" aria-labelledby="map-section-title">
-                <h2 id="map-section-title">Distribuição Geográfica da PSR</h2>
+                <h2 id="map-section-title">Uso de TICs pela PSR em 2025</h2>
                 <div class="filters">
-                    <div class="filter-group">
+                    <!--<div class="filter-group">
                         <label for="local-select">Abrangência</label>
                         <select id="local-select">
                             <option value="df" selected>Distrito Federal</option>
@@ -584,16 +584,13 @@
                             <option value="2025" selected>2025</option>
                         </select>
                     </div>
-                </div>
+                </div> -->
                 <!-- Placeholder de mapa com descrição detalhada (alt) -->
                 <div class="mapa-wrapper">
-                    <div id="container-mapa-2022" style="height: 0; overflow: hidden; width: 100%;">
-                        <iframe src="/get-mapa-2022" style="width: 100%; height: 100%; border: none;"></iframe>
+                    <div id="container-mapa-uso-TIC-PSR" style="display: block; width: 100%; height: 100%;">
+                        {{ mapa_TIC_PSR | safe }}
                     </div>
                     
-                    <div id="container-mapa-2025" style="display: block; width: 100%; height: 100%;">
-                        <iframe src="/get-mapa-2025" style="width: 100%; height: 100%; border: none;"></iframe>
-                    </div>
                 </div>
 
                 <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--ceub-cinza-texto);">
@@ -691,45 +688,7 @@
         overlay.addEventListener('click', toggleMenu);
 
         document.addEventListener("DOMContentLoaded", function() {
-        // Pega os elementos do HTML
-        const selectAno = document.getElementById("ano-select");
-        const mapa2022 = document.getElementById("container-mapa-2022");
-        const mapa2025 = document.getElementById("container-mapa-2025");
-
-        // Concertar os mapas de 2022 e 2025: 
-        document.getElementById('ano-select').addEventListener('change', function() {
-            const anoSelecionado = this.value;
-            const container2022 = document.getElementById('container-mapa-2022');
-            const container2025 = document.getElementById('container-mapa-2025');
-
-            if (anoSelecionado === '2022') {
-                // Mostra o de 2022 (devolve a altura)
-                container2022.style.height = '100%';
-                container2022.style.overflow = 'visible';
-                
-                // Esconde o de 2025 (gargala a altura)
-                container2025.style.height = '0';
-                container2025.style.overflow = 'hidden';
-            } else {
-                // Mostra o de 2025
-                container2025.style.height = '100%';
-                container2025.style.overflow = 'visible';
-                
-                // Esconde o de 2022
-                container2022.style.height = '0';
-                container2022.style.overflow = 'hidden';
-            }
-        });
-        // Fica "escutando" qualquer mudança no dropdown
-        selectAno.addEventListener("change", function() {
-            if (this.value === "2022") {
-                mapa2022.style.display = "block";
-                mapa2025.style.display = "none";
-            } else if (this.value === "2025") {
-                mapa2022.style.display = "none";
-                mapa2025.style.display = "block";
-            }
-        });
+       
     });
     </script>
 </body>

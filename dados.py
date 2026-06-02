@@ -278,20 +278,43 @@ def base_cen_2025():
         'displayModeBar': False
     })
 
+print("Carregamento dos dados...")
+grafico_2022 = base_cen_2022()
+grafico_2025 = base_cen_2025()
+print("...realizado com sucesso!")
+
 @app.route('/')
 def dashboard():
-    # Passo A: O Flask executa suas funções e guarda os gráficos (em formato HTML) nestas variáveis
-    grafico_2022 = base_cen_2022()
-    grafico_2025 = base_cen_2025()
-
-    # Passo B: É AQUI QUE ENTRA O SEU CÓDIGO! 
-    # O Flask abre o 'dashboard.html' (que deve estar na pasta 'templates') 
+    # O Flask abre o 'index.html' (que deve estar na pasta 'templates') 
     # e injeta as variáveis lá dentro.
     return render_template(
         'index.html', 
         mapa_2022=grafico_2022, 
         mapa_2025=grafico_2025
     )
+
+@app.route('/get-mapa-2022')
+def get_mapa_2022():
+    return grafico_2022
+
+@app.route('/get-mapa-2025')
+def get_mapa_2025():
+    return grafico_2025
+
+@app.route('/tic_inclusao') # O endereço que você vai digitar no navegador
+def tic_inclusao():
+    # Certifique-se de que o arquivo 'detalhes.html' existe na pasta 'templates'
+    return render_template('tic_inclusao.html')
+
+@app.route('/feedback') # O endereço que você vai digitar no navegador
+def feedback():
+    # Certifique-se de que o arquivo 'detalhes.html' existe na pasta 'templates'
+    return render_template('feedback.html')
+
+@app.route('/newsletter') # O endereço que você vai digitar no navegador
+def newsletter():
+    # Certifique-se de que o arquivo 'detalhes.html' existe na pasta 'templates'
+    return render_template('newsletter.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

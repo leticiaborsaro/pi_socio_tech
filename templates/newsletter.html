@@ -440,8 +440,8 @@
         <aside aria-label="Menu principal do dashboard">
             <nav>
                 <ul>
-                    <li><a href="index.html">PSR · Visão Geral</a></li>
-                    <li><a href="#">TICS e Inclusão</a></li>
+                    <li><a href="/">PSR · Visão Geral</a></li>
+                    <li><a href="{{ url_for('tic_inclusao') }}">TICS e Inclusão</a></li>
                     <li><a href="#">Cruzamento PSR x TICS</a></li>
                     <li><a href="#">Centro POP Rua</a></li>
                     <li><a href="#">Projetos Ativos</a></li>
@@ -450,8 +450,8 @@
                 <ul>
                     <li><a href="#">Sobre o Estudo</a></li>
                     <li><a href="#">Metodologia</a></li>
-                    <li><a href="feedback.html">Feedback</a></li>
-                    <li><a href="newsletter.html" class="active" aria-current="page">Newsletter</a></li>
+                    <li><a href="{{ url_for('feedback') }}">Feedback</a></li>
+                    <li><a href="{{ url_for('newsletter') }}" class="active" aria-current="page">Newsletter</a></li>
                 </ul>
             </nav>
         </aside>
