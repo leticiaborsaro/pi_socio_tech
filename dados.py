@@ -15,7 +15,7 @@ def base_cen_2022():
     df_psr = pd.read_excel(
     "https://docs.google.com/spreadsheets/d/1kUtdHRKd_UhLYwe3RVtPhI5-7J-LosBU/export?format=xlsx",
     engine='openpyxl'
-)
+    )
     # Base geográfica das RAs (CSV com WKT)
     csv_url = 'https://raw.githubusercontent.com/leticiaborsaro/pi_socio_tech/main/DADOS/Limite_RA_20190.csv'
     df_raw_geo_temp = pd.read_csv(csv_url)
@@ -125,10 +125,14 @@ def base_cen_2022():
 
     fig.update_layout(
         margin={'r': 0, 't': 50, 'l': 0, 'b': 0},
-        dragmode=False
+        dragmode=False,
+        autosize = True
     )
 
-    return fig.to_html(full_html=False, include_plotlyjs='cdn', config={'scrollZoom': False})
+    return fig.to_html(full_html=False, include_plotlyjs='cdn', config={
+        'scrollZoom': False,
+        'responsive': True,
+        'displayModeBar': False})
 
 def base_cen_2025():
 
@@ -264,10 +268,15 @@ def base_cen_2025():
 
     fig.update_layout(
         margin={'r': 0, 't': 50, 'l': 0, 'b': 0},
-        dragmode=False
+        dragmode=False,
+        autosize=True
     )
 
-    return fig.to_html(full_html=False, include_plotlyjs='cdn', config={'scrollZoom': False})
+    return fig.to_html(full_html=False, include_plotlyjs='cdn', config={
+        'scrollZoom': False,
+        'responsive': True,
+        'displayModeBar': False
+    })
 
 @app.route('/')
 def dashboard():

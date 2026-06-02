@@ -241,18 +241,23 @@
         .mapa-wrapper {
             width: 100%; 
             border-radius: 18px; 
-            overflow: hidden; 
+            /*overflow: hidden; TESTE: */
+            overflow: visible;
             border: 1px solid var(--ceub-cinza-medio); 
             margin-top: 1rem; 
             background-color: #faf9fc; 
-            min-height: 450px;
+            /* mudança: min-height: 450px; */
+            height: 500px;
+            padding: 5px;
+            box-sizing: border-box;
         }
 
         .chart-placeholder {
             width: 100%;
+            aspect-ratio: 2 / 1;
             border-radius: 18px;
             background-color: #f2f0f5;
-            display: flex;
+            /*display: flex;*/
             align-items: center;
             justify-content: center;
             overflow: hidden;
@@ -263,15 +268,12 @@
             aspect-ratio: 16 / 9;
         }
 
-        .chart-placeholder {
-            aspect-ratio: 2 / 1;
-            background-color: #faf9fc;
-        }
-
         .map-placeholder img,
         .chart-placeholder img {
             width: 100%;
             height: 100%;
+
+            /* TESTE: trocar por contain ao invés de cover em object-fit */
             object-fit: cover;        /* garante que a imagem cubra sem distorcer */
             display: block;
         }
@@ -505,6 +507,13 @@
             outline: 3px solid var(--ceub-lilas);
             outline-offset: 3px;
         }
+        /* Para garantir que o plotly não vai ignorar o CSS */
+
+        .mapa-wrapper .js-plotly-plot,
+        .mapa-wrapper .js-plotly-plot .main-svg {
+            width: 100% !important;
+        }
+
     </style>
 </head>
 <body>
@@ -578,24 +587,21 @@
                 </div>
                 <!-- Placeholder de mapa com descrição detalhada (alt) -->
                 <div class="mapa-wrapper">
-
-                    <div id="container-mapa-2022" style="display: none; width: 100%; height: 100%;">
+                    <div id="container-mapa-2022" style="height: 0; overflow: hidden; width: 100%;">
                         {{ mapa_2022 | safe }}
                     </div>
-                
+                    
                     <div id="container-mapa-2025" style="display: block; width: 100%; height: 100%;">
                         {{ mapa_2025 | safe }}
                     </div>
-                    <!--<img src="https://placehold.co/800x400/2d1b3a/bf0087?text=MAPA+DE+CALOR+PSR+BRASIL&font=montserrat" 
-                         alt="Mapa do Brasil com manchas de calor em tons de roxo e magenta. Regiões mais escuras indicam maior concentração de população em situação de rua. Destaque para os estados de São Paulo, Rio de Janeiro e Minas Gerais.">
-                </div> -->
+                </div>
 
                 <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--ceub-cinza-texto);">
                     <span aria-hidden="true">🔍</span> Fonte: IPEDF
                 </p>
             </section>
 
-            <!-- Indicadores rápidos -->
+            <!-- Indicadores rápidos (EDITAR DEPOIS)-->
             <section class="dashboard-card col-4" aria-labelledby="kpi-title">
                 <h2 id="kpi-title">Indicadores em Destaque</h2>
                 
@@ -684,13 +690,36 @@
         // Fecha o menu se clicar na área escura (overlay)
         overlay.addEventListener('click', toggleMenu);
 
-        // ADICIONADO: 
         document.addEventListener("DOMContentLoaded", function() {
         // Pega os elementos do HTML
         const selectAno = document.getElementById("ano-select");
         const mapa2022 = document.getElementById("container-mapa-2022");
         const mapa2025 = document.getElementById("container-mapa-2025");
 
+        // Concertar os mapas de 2022 e 2025: 
+        document.getElementById('ano-select').addEventListener('change', function() {
+            const anoSelecionado = this.value;
+            const container2022 = document.getElementById('container-mapa-2022');
+            const container2025 = document.getElementById('container-mapa-2025');
+
+            if (anoSelecionado === '2022') {
+                // Mostra o de 2022 (devolve a altura)
+                container2022.style.height = '100%';
+                container2022.style.overflow = 'visible';
+                
+                // Esconde o de 2025 (gargala a altura)
+                container2025.style.height = '0';
+                container2025.style.overflow = 'hidden';
+            } else {
+                // Mostra o de 2025
+                container2025.style.height = '100%';
+                container2025.style.overflow = 'visible';
+                
+                // Esconde o de 2022
+                container2022.style.height = '0';
+                container2022.style.overflow = 'hidden';
+            }
+        });
         // Fica "escutando" qualquer mudança no dropdown
         selectAno.addEventListener("change", function() {
             if (this.value === "2022") {
