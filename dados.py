@@ -4,6 +4,11 @@ import geopandas as gpd
 import plotly.express as px
 from shapely import wkt
 import json
+import numpy as np
+from samplics.categorical import Tabulation
+from samplics.utils.types import PopParam  # <-- Importação necessária para corrigir o erro do parâmetro da amostra
+
+
 
 # inicia o app Flask
 app = Flask(__name__)
@@ -16,6 +21,7 @@ def base_cen_2022():
     "https://docs.google.com/spreadsheets/d/1kUtdHRKd_UhLYwe3RVtPhI5-7J-LosBU/export?format=xlsx",
     engine='openpyxl'
     )
+    
     # Base geográfica das RAs (CSV com WKT)
     csv_url = 'https://raw.githubusercontent.com/leticiaborsaro/pi_socio_tech/main/DADOS/Limite_RA_20190.csv'
     df_raw_geo_temp = pd.read_csv(csv_url)
@@ -167,6 +173,10 @@ def base_cen_2025():
                 df_dois_psr.dropna(subset=[col], inplace=True)
 
     df_dois_psr = df_dois_psr[[col for col in df_dois_psr_relevant_cols if col in df_dois_psr.columns]]
+
+    # CHECK RÁPIDO QUANTIDADE TOTAL
+    n_entrevistados = len(df_dois_psr[df_dois_psr['1.1.1'].notna()])
+    print(f"######### {n_entrevistados} ###########")
 
     # Remove NaNs nas colunas essenciais do geo_df
     initial_rows_df_dois_raw_geo = len(df_raw_geo)
