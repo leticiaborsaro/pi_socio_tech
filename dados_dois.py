@@ -189,10 +189,9 @@ def calcular_estimativas_cv(df, coluna_grupo, coluna_peso='fator'):
     # --- PROTEÇÃO CONTRA ZERO DIVISION ERROR (ADICIONADO AQUI) ---
     # Se a base filtrada estiver vazia ou a soma dos pesos for zero, evitamos o Samplics
     if df_clean.empty or df_clean[coluna_peso].sum() == 0:
-        print(f"⚠️ Aviso: Nenhuma observação válida encontrada para '{coluna_grupo}'. Ignorando Samplics.")
+        print(f"Aviso: Nenhuma observação válida encontrada para '{coluna_grupo}'. Ignorando Samplics.")
         # Retorna um DataFrame vazio com a mesma estrutura para não quebrar os prints seguintes
         return pd.DataFrame(columns=[coluna_grupo, 'n_ponderado', 'cv', 'proporcao'])
-    # --------------------------------------------------------------
     
     # 2. Calcular Totais Ponderados
     tab_total = Tabulation(param=PopParam.count)
@@ -246,32 +245,57 @@ print(Tem_cel, "\n")
 # Universo FILTRADO: Apenas quem respondeu 'Sim' na 13.1
 amostra_sim_13_1 = amostra[amostra['13.1'] == 'Sim'].copy()
 
-Acesso_net  = calcular_estimativas_cv(amostra_sim_13_1, '13.2.1') 
-Acesso_net2 = calcular_estimativas_cv(amostra_sim_13_1, '13.2.2')
-Acesso_net3 = calcular_estimativas_cv(amostra_sim_13_1, '13.2.3')
+# 13.2 - VOCÊ ACESSA A INTERNET NESSE CELULAR OU EM OUTROS APARELHOS?
+# 13.2.3 - Não acesso
+# 13.2.4 - Não respondeu
 
-print("13.2.1 - Acesso pelo celular?")
+Acesso_net  = calcular_estimativas_cv(amostra_sim_13_1, '13.2.1') # 13.2.1 - Sim, nesse celular
+Acesso_net2 = calcular_estimativas_cv(amostra_sim_13_1, '13.2.2') # 13.2.2 - Sim em outros aparelhos
+Acesso_net3 = calcular_estimativas_cv(amostra_sim_13_1, '13.2.3') # 13.2.4 - Não respondeu
+
+print("13.2.1 - Sim, nesse celular")
 print(Acesso_net, "\n")
 
+print("13.2.2 - Sim, em outros aparelhos")
+print(Acesso_net2, "\n")
+
+print("13.2.3 - Não acesso")
+print(Acesso_net3, "\n")
+
+print("13.2.4 - Não respondeu")
 
 # =========================================================
-# --- BLOCO 13.3 (CORRIGIDO COM SINALIZAÇÃO DE TEXTO) ---
+# --- BLOCO 13.3 – EM QUAL LOCAL VOCÊ USA A INTERNET? ---
 # =========================================================
 
 # Buscando de forma parcial pela palavra 'Sim' para capturar qualquer variação de texto
+# Para quem respondeu "Sim, nesse celular" e "Sim, em outros aparelhos"
 amostra_internet = amostra_sim_13_1[
     (amostra_sim_13_1['13.2.1'].str.contains('Sim', na=False)) | 
     (amostra_sim_13_1['13.2.2'].str.contains('Sim', na=False))
 ].copy()
 
-# Agora que a base não estará mais vazia, as funções vão rodar perfeitamente:
-dados         = calcular_estimativas_cv(amostra_internet, '13.3.1')
-casa          = calcular_estimativas_cv(amostra_internet, '13.3.2')
-serv_publicos = calcular_estimativas_cv(amostra_internet, '13.3.3')
-comercio      = calcular_estimativas_cv(amostra_internet, '13.3.4')
-inst_sociais  = calcular_estimativas_cv(amostra_internet, '13.3.5')
+#As opções de resposta: 
+dados         = calcular_estimativas_cv(amostra_internet, '13.3.1') # 1. Própria de dados móveis (3G, 4G ou 5G de uma operadora, como Claro, Vivo e Tim)
+casa          = calcular_estimativas_cv(amostra_internet, '13.3.2') # 2. Em casa ou onde dorme
+serv_publicos = calcular_estimativas_cv(amostra_internet, '13.3.3') # 3. Serviços públicos (Bibliotecas, rodoviária, CREAS, CRAS, Centro Pop e outros)
+comercio      = calcular_estimativas_cv(amostra_internet, '13.3.4') # 4. Lugares comerciais (shoppings, mercados e outros)
+inst_sociais  = calcular_estimativas_cv(amostra_internet, '13.3.5') # 5. Instituições sociais (igreja, ONGs e outros)
 
-print("13.3.2 - Uso de Internet em Casa (Universo Correto e Ajustado):")
+print("13.3.1")
+print(dados, "\n")
+
+print("13.3.2 - Uso de Internet em Casa:")
 print(casa, "\n")
+
+print("13.3.3 - Uso de Internet em serviços públicos:")
+print(serv_publicos, "\n")
+
+print("13.3.4 - Uso de Internet em comércio:")
+print(comercio, "\n")
+
+print("13.3.5 - Uso de Internet em instituições sociais:")
+print(inst_sociais, "\n")
+print("OBS: Estimativa com alta variabilidade amostral (CV > 30%), deve ser interpretada apenas como tendência".)
 
 #"""
