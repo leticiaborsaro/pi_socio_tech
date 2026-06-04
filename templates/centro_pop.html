@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard · População em Situação de Rua (PSR) X Tecnologias de Informação e Comunicação · CEUB</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Ir para o conteúdo principal</a>
+
+    <div class="overlay" id="menu-overlay"></div>
+    <!-- Cabeçalho com logo institucional correto -->
+    <header role="banner">
+        <button id="btn-menu" class="btn-menu" aria-label="Abrir menu" aria-expanded="false">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+        </button>
+
+        <div class="logo">
+            <img src="https://institucional.uniceub.br/hubfs/BrandCenter/img/logo-ceub-versao-estendida.png" 
+                 alt="Logotipo CEUB - Centro Universitário de Brasília (versão estendida, lilás)">
+        </div>
+        <div class="header-titles">
+            <h1>População em Situação de Rua </h1>
+            <p class="subtitle">Painel de Monitoramento · PSR x TICs </p>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Navegação lateral (acessível) -->
+        <aside aria-label="Menu principal do dashboard">
+            <nav>
+                <ul>
+                    <li><a href="/">PSR · Visão Geral</a></li>
+                    <li><a href="{{url_for('tic_brasil')}}">TICS no Brasil</a></li>
+                    <li><a href="{{ url_for('tic_psr') }}">Cruzamento PSR x TICS</a></li>
+                    <li><a href="{{url_for('centro_pop')}}" class="active" aria-current="page">Centro POP Rua</a></li>
+                    <li><a href="{{url_for('projetos')}}">Projetos Ativos</a></li>
+                </ul>
+                <div class="nav-divider" role="separator"></div>
+                <ul>
+                    <li><a href="#">Sobre o Estudo</a></li>
+                    <li><a href="#">Principais Conclusões</a></li>
+                    <li><a href="#">Metodologia</a></li>
+                    <li><a href="#">Referências</a></li>
+                    <li><a href="{{ url_for('feedback') }}">Feedback</a></li>
+                    <li><a href="{{ url_for('newsletter') }}">Newsletter</a></li>
+
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- CONTEÚDO PRINCIPAL -->
+        <main id="main-content" role="main">
+            <section class="dashboard-card col-12" aria-labelledby="em-obras-title" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 5rem 2rem; gap: 1.5rem;">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--ceub-roxo)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.9;" aria-hidden="true">
+                    <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.1a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                </svg>
+
+                <div style="max-width: 540px;">
+                    <h2 id="em-obras-title" style="border-left: none; padding-left: 0; margin-bottom: 0.8rem; color: var(--ceub-roxo-escuro); font-size: 1.8rem;">
+                        Página em Desenvolvimento
+                    </h2>
+                    <p style="color: var(--ceub-cinza-texto); font-size: 1.05rem; line-height: 1.6; margin: 0;">
+                        Estamos no processo de desenvolvimento desta seção.
+                    </p>
+                </div>
+        </main> 
+    </div>
+    <!-- Rodapé com informações institucionais e acessibilidade -->
+    <footer role="contentinfo">
+        <div class="footer-info">
+            <p> <strong> <a href="https://github.com/leticiaborsaro" style="text-decoration: none; color:#faf9fc;">Leticia Borsaro </a> </strong> · PI 1 – Versão 2</p>
+            <p>Projeto Integrador · CEUB · 2026</p>
+        </div>
+        <div class="footer-links">
+            <p> Conformidade: WCAG 2.1 AA · eMAG 3.1</p>
+        </div>
+    </footer>
+
+    <!-- Garantia extra de descrição para leitores de tela (audiodescrição futura) -->
+    <div class="sr-only" aria-live="polite" aria-atomic="true">
+        ⓘ Dashboard da População em Situação de Rua em relação às TICs. Os gráficos e mapas são placeholders com audiodescrição resumida. A versão final contará com descrições detalhadas.
+    </div>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
