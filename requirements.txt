@@ -1,0 +1,8 @@
+Flask
+gunicorn
+plotly
+pandas
+geopandas
+numpy
+shapely
+samplics
